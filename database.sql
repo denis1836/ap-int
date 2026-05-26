@@ -1,31 +1,33 @@
-CREATE DATABASE ForumDB;
 USE ForumDB;
 
 --User stuff
 CREATE TABLE Users(
     user_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    slug VARCHAR(64) NOT NULL UNIQUE,
-    user_name VARCHAR(256) NOT NULL,
+    
+    -- main
+    user_name VARCHAR(64) NOT NULL UNIQUE,
+    full_name VARCHAR(256) NOT NULL,
+    user_bio VARCHAR(2048),
+    
+    -- collabs
     main_car_ID BIGINT,
-    user_bio TEXT,
     country_ID BIGINT DEFAULT NULL,
     location_ID BIGINT DEFAULT NULL,
+    
+    -- media
     avatar_url VARCHAR(512),
+    banner_url VARCHAR(512),
+
+    -- user data
     email VARCHAR(100) UNIQUE NOT NULL,
     phone_number VARCHAR(16) UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-    last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     password_hash VARCHAR(256) NOT NULL,
-    FOREIGN KEY (main_car_ID) REFERENCES Cars(car_ID),
-    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID),
-    FOREIGN KEY (location_ID) REFERENCES Locations(location_ID)
-);
-CREATE TABLE User_Statistics(
-    user_ID BIGINT NOT NULL PRIMARY KEY,
+    
     --statuses
     is_active BOOLEAN DEFAULT TRUE,
     is_admin BOOLEAN DEFAULT FALSE,
     is_deleted BOOLEAN DEFAULT FALSE,
+    
     --amounts
     friends_amount INT DEFAULT 0,
     posts_amount INT DEFAULT 0,
@@ -38,12 +40,27 @@ CREATE TABLE User_Statistics(
     dislikes_amount INT DEFAULT 0,
     events_amount INT DEFAULT 0,
     organised_events_amount INT DEFAULT 0,
-    FOREIGN KEY (user_ID) REFERENCES Users(user_ID)
+
+    -- time
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    -- refs
+    FOREIGN KEY (main_car_ID) REFERENCES Cars(car_ID),
+    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID),
+    FOREIGN KEY (location_ID) REFERENCES Locations(location_ID)
 );
 CREATE TABLE Friends(
     user_ID BIGINT NOT NULL,
     friend_user_ID BIGINT NOT NULL,
+    
+    -- state
+    status ENUM('pending', 'accepted', 'blocked'),
+    
+    -- time
     friendship_started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- refs
     PRIMARY KEY (user_ID, friend_user_ID),
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (friend_user_ID) REFERENCES Users(user_ID)
@@ -52,32 +69,31 @@ CREATE TABLE Friends(
 CREATE TABLE Cars(
     car_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     user_owner_ID BIGINT NOT NULL,
+    
+    -- main
     car_name VARCHAR(64) DEFAULT NULL,
     description TEXT,
+    
     slug VARCHAR(64) UNIQUE NOT NULL,
+    
+    -- car info
     year INT NOT NULL,
     brand_ID BIGINT NOT NULL,
     model_ID BIGINT NOT NULL,
     model_generation_ID BIGINT NOT NULL,
     engine_ID BIGINT NOT NULL,
     gearbox_ID BIGINT DEFAULT NULL,
-    modifications TEXT,
+    fuel_type ENUM('petrol', 'diesel', 'petrol+lpg', 'lpg', 'electric', 'hybrid', 'other') NOT NULL,
     drive_type ENUM('FWD', 'RWD', 'AWD', '4WD') NOT NULL,
-    color VARCHAR(64) NOT NULL,
-    fuel_type ENUM('petrol', 'diesel', 'petrol+lpg', 'lpg', 'electric', 'hybrid','other') NOT NULL,
+    color BIGINT NOT NULL,
+    
+    -- if any mods
     is_modified BOOLEAN DEFAULT FALSE,
-    is_past BOOLEAN DEFAULT FALSE,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    users_since TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_owner_ID) REFERENCES Users(user_ID) ON DELETE SET NULL,
-    FOREIGN KEY (brand_ID) REFERENCES Car_Brands(brand_ID) ON DELETE SET NULL,
-    FOREIGN KEY (model_ID) REFERENCES Car_Models(model_ID) ON DELETE SET NULL,
-    FOREIGN KEY (model_generation_ID) REFERENCES Car_Model_Generations(generation_ID) ON DELETE SET NULL,
-    FOREIGN KEY (engine_ID) REFERENCES Engines(engine_ID) ON DELETE SET NULL,
-    FOREIGN KEY (gearbox_ID) REFERENCES Gearboxes(gearbox_ID) ON DELETE SET NULL
-);
-CREATE TABLE Car_Statistics(
-    car_ID BIGINT NOT NULL PRIMARY KEY,
+    modifications TEXT,
+    
+    state ENUM('active', 'main', 'past', 'deleted'),
+
+    -- stats
     posts_amount INT DEFAULT 0,
     photos_amount INT DEFAULT 0,
     likes_amount INT DEFAULT 0,
@@ -85,23 +101,37 @@ CREATE TABLE Car_Statistics(
     tags_amount INT DEFAULT 0,
     distance_driven_km INT DEFAULT 0,
     distance_last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (car_ID) REFERENCES Cars(car_ID) ON DELETE SET NULL
+
+    -- time
+    owning_since TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
+    FOREIGN KEY (user_owner_ID) REFERENCES Users(user_ID) ON DELETE SET NULL,
+    FOREIGN KEY (brand_ID) REFERENCES Car_Brands(brand_ID) ON DELETE SET NULL,
+    FOREIGN KEY (model_ID) REFERENCES Car_Models(model_ID) ON DELETE SET NULL,
+    FOREIGN KEY (model_generation_ID) REFERENCES Car_Model_Generations(generation_ID) ON DELETE SET NULL,
+    FOREIGN KEY (engine_ID) REFERENCES Engines(engine_ID) ON DELETE SET NULL,
+    FOREIGN KEY (gearbox_ID) REFERENCES Gearboxes(gearbox_ID) ON DELETE SET NULL,
+    FOREIGN KEY (color_ID) REFERENCES Colors(color_ID) ON DELETE SET NULL
 );
 
 CREATE TABLE Clubs(
     club_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     user_owner_ID BIGINT NOT NULL,
+    
+    --main info 
     club_name VARCHAR(128) NOT NULL,
     slug VARCHAR(64) UNIQUE NOT NULL,
     description TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_private BOOLEAN DEFAULT FALSE,
-    cover_photo_url VARCHAR(500),
-    banner_photo_url VARCHAR(500),
-    FOREIGN KEY (user_owner_ID) REFERENCES Users(user_ID)
-);
-CREATE TABLE Club_Statistics(
+    
+    -- media
+    avatar_url VARCHAR(512),
+    banner_url VARCHAR(512),
+
+    visiblity ENUM('public', 'private'),    
+    
+    -- stats
     club_ID BIGINT NOT NULL PRIMARY KEY,
     total_posts INT DEFAULT 0,
     total_photos INT DEFAULT 0,
@@ -109,14 +139,26 @@ CREATE TABLE Club_Statistics(
     total_cars INT DEFAULT 0,
     total_active_members INT DEFAULT 0,
     total_events INT DEFAULT 0,
-    FOREIGN KEY (club_ID) REFERENCES Clubs(club_ID) ON DELETE SET NULL
+
+    -- time
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    --refs
+    FOREIGN KEY (user_owner_ID) REFERENCES Users(user_ID)
 );
 CREATE TABLE Club_Members(
     club_ID BIGINT NOT NULL,
     user_ID BIGINT NOT NULL,
-    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- states
     role ENUM('member', 'moderator', 'admin') DEFAULT 'member',
-    status ENUM('active', 'pending', 'banned') DEFAULT 'active',
+    status ENUM('pending', 'active', 'banned') DEFAULT 'active',
+    
+    -- time
+    joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     PRIMARY KEY (club_id, user_id),
     FOREIGN KEY (club_ID) REFERENCES Clubs(club_ID) ON DELETE SET NULL,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID) ON DELETE SET NULL
@@ -125,22 +167,33 @@ CREATE TABLE Club_Members(
 --Posts
 CREATE TABLE Posts(
     post_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    
+    -- main
+    title VARCHAR(256) NOT NULL,
+    content TEXT NOT NULL,
+
+    -- collabs
     user_ID BIGINT NOT NULL,
     club_ID BIGINT DEFAULT NULL,
     car_ID BIGINT DEFAULT NULL,
     event_ID BIGINT DEFAULT NULL,
     location_ID BIGINT DEFAULT NULL,
-    title VARCHAR(256) NOT NULL,
-    content TEXT NOT NULL,
-    location VARCHAR(256),
-    linked_photos_amount INT,
-    comment_amount INT,
-    likes_amount INT,
-    dislikes_amount INT,
+    
+    -- stats
+    linked_photos_amount INT DEFAULT 0,
+    comment_amount INT DEFAULT 0,
+    likes_amount INT DEFAULT 0,
+    dislikes_amount INT DEFAULT 0,
+    
+    -- misc data
     is_nsfw BOOLEAN DEFAULT FALSE,
     is_edited BOOLEAN DEFAULT FALSE,
+    
+    -- time
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- refs
     FOREIGN KEY (car_ID) REFERENCES Cars(car_ID) ON DELETE SET NULL,
     FOREIGN KEY (club_ID) REFERENCES Clubs(club_ID) ON DELETE SET NULL,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID) ON DELETE SET NULL,
@@ -149,29 +202,49 @@ CREATE TABLE Posts(
 );
 CREATE TABLE Post_Tags(
     post_ID BIGINT NOT NULL,
-    tag VARCHAR(64) NOT NULL,
+    
+    -- main
+    tag_ID BIGINT NOT NULL,
+    
+    -- refs
     PRIMARY KEY (post_ID, tag),
+    FOREIGN KEY (tag_ID) REFERENCES Post_Tags(tag_ID) ON DELETE CASCADE,
     FOREIGN KEY (post_ID) REFERENCES Posts(post_ID) ON DELETE CASCADE
 );
 CREATE TABLE Post_Comments(
-    comment_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    post_ID BIGINT NOT NULL,
-    parent_comment_ID BIGINT DEFAULT NULL,
+    post_comment_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    parent_post_comment_ID BIGINT DEFAULT NULL,
     user_ID BIGINT NOT NULL,
+    post_ID BIGINT NOT NULL,
+    
+    -- main
     content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- sttats
     likes_amount INT,
     dislikes_amount INT,
+    
+    -- time
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     FOREIGN KEY (post_ID) REFERENCES Posts(post_ID) ON DELETE SET NULL,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
-    FOREIGN KEY (parent_comment_ID) REFERENCES Post_Comments(comment_ID) ON DELETE CASCADE
+    FOREIGN KEY (parent_post_comment_ID) REFERENCES Post_Comments(post_comment_ID) ON DELETE CASCADE
 );
 CREATE TABLE Post_Comment_Reactions (
-    comment_ID BIGINT NOT NULL,
+    post_comment_ID BIGINT NOT NULL,
     user_ID BIGINT NOT NULL,
+    
+    -- main
     reaction ENUM('like', 'dislike') NOT NULL,
-    PRIMARY KEY (comment_ID, user_ID),
-    FOREIGN KEY (comment_ID) REFERENCES Post_Comments(comment_ID) ON DELETE CASCADE,
+    
+    -- time
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
+    PRIMARY KEY (post_comment_ID, user_ID),
+    FOREIGN KEY (post_comment_ID) REFERENCES Post_Comments(post_comment_ID) ON DELETE CASCADE,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID)
 );
 
@@ -179,18 +252,30 @@ CREATE TABLE Post_Comment_Reactions (
 CREATE TABLE Photos(
     photo_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     user_ID BIGINT NOT NULL,
+    
+    -- main
+    photo_url VARCHAR(512) NOT NULL,
+    description VARCHAR(512),
+    
+    part_on_the_photo VARCHAR(128),
+    
+    -- collabs
     post_ID BIGINT DEFAULT NULL,
     club_ID BIGINT DEFAULT NULL,
     car_ID BIGINT DEFAULT NULL,
     location_ID BIGINT DEFAULT NULL,
     event_ID BIGINT DEFAULT NULL,
-    photo_url VARCHAR(512) NOT NULL,
-    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    description VARCHAR(512),
-    part_on_the_photo VARCHAR(128),
+    
+    -- stats
     likes_amount INT,
     dislikes_amount INT,
+    
     is_nsfw BOOLEAN DEFAULT FALSE,
+
+    --time
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (post_ID) REFERENCES Posts(post_ID) ON DELETE SET NULL,
     FOREIGN KEY (club_ID) REFERENCES Clubs(club_ID) ON DELETE SET NULL,
@@ -201,20 +286,35 @@ CREATE TABLE Photos(
 CREATE TABLE Photos_Likes (
     photo_ID BIGINT NOT NULL,
     user_ID BIGINT NOT NULL,
+    
+    -- main
     reaction ENUM('like', 'dislike') NOT NULL,
+    
+    -- time
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     PRIMARY KEY (photo_ID, user_ID),
     FOREIGN KEY (photo_ID) REFERENCES Photos(photo_ID) ON DELETE CASCADE,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID) ON DELETE CASCADE
 );
 CREATE TABLE Photos_Comments(
     photo_comment_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    photo_ID BIGINT NOT NULL,
     parent_comment_ID BIGINT DEFAULT NULL,
+    photo_ID BIGINT NOT NULL,
     user_ID BIGINT NOT NULL,
+    
+    --main
     content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- stats
     likes_amount INT,
     dislikes_amount INT,
+    
+    -- time
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     FOREIGN KEY (photo_ID) REFERENCES Photos(photo_ID) ON DELETE SET NULL,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (parent_comment_ID) REFERENCES Photos_Comments(photo_comment_ID) ON DELETE CASCADE
@@ -222,7 +322,14 @@ CREATE TABLE Photos_Comments(
 CREATE TABLE Photos_Comment_Reactions (
     comment_ID BIGINT NOT NULL,
     user_ID BIGINT NOT NULL,
+    
+    -- main
     reaction ENUM('like', 'dislike') NOT NULL,
+
+    -- time
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- refs
     PRIMARY KEY (comment_ID, user_ID),
     FOREIGN KEY (comment_ID) REFERENCES Photos_Comments(photo_comment_ID) ON DELETE CASCADE,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID)
@@ -239,18 +346,28 @@ CREATE TABLE Forum_Statistics(
     total_cars INT DEFAULT 0,
     total_events INT DEFAULT 0,
     total_active_events INT DEFAULT 0,
+    
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 CREATE TABLE Notifications (
     notification_ID BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_ID BIGINT NOT NULL,
     type_ID BIGINT NOT NULL,
+    
+    -- collabs
     other_user_ID BIGINT,
     related_post_ID BIGINT,
     related_comment_ID BIGINT,
     related_photo_ID BIGINT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- state
     is_read BOOLEAN DEFAULT FALSE,
+
+    --time 
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    --refs
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID) ON DELETE CASCADE,
     FOREIGN KEY (type_ID) REFERENCES Notifications_Types(type_ID) ON DELETE SET NULL,
     FOREIGN KEY (other_user_ID) REFERENCES Users(user_ID),
@@ -265,43 +382,63 @@ CREATE TABLE Notifications_Types(
 );
 
 --places
-CREATE TABLE Locations(
-    location_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    location_name VARCHAR(256) NOT NULL,
-    country_ID BIGINT NOT NULL,
-    latitude DECIMAL(9,6) NOT NULL,
-    longitude DECIMAL(9,6) NOT NULL,
-    description TEXT,
-    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID)
-);
 CREATE TABLE Countries(
     country_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    
     country_name VARCHAR(128) NOT NULL,
     country_flag_url VARCHAR(512),
     country_code VARCHAR(8) NOT NULL,
     continent VARCHAR(64) NOT NULL
+);
+CREATE TABLE Locations(
+    location_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    country_ID BIGINT NOT NULL,
+    
+    -- main
+    location_name VARCHAR(256) NOT NULL,
+    description TEXT,
+    
+    latitude DECIMAL(9,6) NOT NULL,
+    longitude DECIMAL(9,6) NOT NULL,
+    
+    -- refs
+    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID)
 );
 
 --Event tables
 CREATE TABLE Events(
     event_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     user_organizer_ID BIGINT NOT NULL,
+    
+    -- main
     title VARCHAR(256) NOT NULL,
     description TEXT NOT NULL,
-    start TIMESTAMP NOT NULL,
-    end TIMESTAMP NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
     location_ID BIGINT NOT NULL,
     is_active BOOLEAN DEFAULT TRUE,
+    
+    --stats
     amount_of_participants INT DEFAULT 0,
+    
+    -- time
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- refs
     FOREIGN KEY (user_organizer_ID) REFERENCES Users(user_ID),
     FOREIGN KEY (location_ID) REFERENCES Locations(location_ID)
 );
 CREATE TABLE Event_Participants(
     event_ID BIGINT NOT NULL,
+    
+    -- main
     user_ID BIGINT NOT NULL,
     user_car_ID BIGINT,
+    
+    -- time
     joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    -- refs
     PRIMARY KEY (event_ID, user_ID),
     FOREIGN KEY (event_ID) REFERENCES Events(event_ID) ON DELETE SET NULL,
     FOREIGN KEY (user_ID) REFERENCES Users(user_ID),
@@ -311,40 +448,58 @@ CREATE TABLE Event_Participants(
 --Mechanical data tables
 CREATE TABLE Car_Brands(
     car_brand_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    
+    -- main
     brand_name VARCHAR(128) NOT NULL UNIQUE
 );
 CREATE TABLE Car_Models(
     model_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     brand_ID BIGINT NOT NULL,
+    
+    -- main
     model_name VARCHAR(128) NOT NULL,
     wikipedia_link VARCHAR(512),
+    
+    -- refs
     FOREIGN KEY (brand_ID) REFERENCES Car_Brands(brand_ID)
 );
 CREATE TABLE Car_Model_Generations(
     generation_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
     model_ID BIGINT NOT NULL,
+    
+    --main
     generation_name VARCHAR(128) NOT NULL,
+    
+    -- dates
     production_start_year INT NOT NULL,
     production_end_year INT,
+    
+    -- refs
     FOREIGN KEY (model_ID) REFERENCES Car_Models(model_ID) 
 );
 CREATE TABLE Engines(
     engine_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    
+    -- main
     name VARCHAR(128) NOT NULL,
-    displacement FLOAT NOT NULL,
+    description TEXT,
     format VARCHAR(48) NOT NULL,
     code VARCHAR(48) NOT NULL,
+    fuel_type VARCHAR(48) NOT NULL,
+    
+    -- the numbers
+    displacement FLOAT NOT NULL,
     horsepower INT NOT NULL,
     torque INT NOT NULL,
-    fuel_type VARCHAR(48) NOT NULL,
-    description TEXT
 );
 CREATE TABLE Gearboxes(
     gearbox_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    
+    -- main
     name VARCHAR(128) NOT NULL,
+    description TEXT
     type ENUM('manual', 'automatic', 'semi-automatic', 'cvt') NOT NULL,
     gears_amount INT NOT NULL,
-    description TEXT
 );
 
 --Indexes
