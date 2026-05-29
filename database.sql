@@ -387,12 +387,22 @@ CREATE TABLE Countries(
     
     country_name VARCHAR(128) NOT NULL,
     country_flag_url VARCHAR(512),
-    country_code VARCHAR(8) NOT NULL,
-    continent VARCHAR(64) NOT NULL
+    country_code VARCHAR(4) NOT NULL
+);
+CREATE TABLE Regions(
+    region_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    country_ID BIGINT NOT NULL,
+
+    region_name VARCHAR(128) NOT NULL,
+    region_flag_url VARCHAR(512),
+    region_code VARCHAR(4) NOT NULL
+
+    --refs
+    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID)
 );
 CREATE TABLE Locations(
     location_ID BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    country_ID BIGINT NOT NULL,
+    region_ID BIGINT NOT NULL,
     
     -- main
     location_name VARCHAR(256) NOT NULL,
@@ -402,7 +412,7 @@ CREATE TABLE Locations(
     longitude DECIMAL(9,6) NOT NULL,
     
     -- refs
-    FOREIGN KEY (country_ID) REFERENCES Countries(country_ID)
+    FOREIGN KEY (region_ID) REFERENCES Regions(region_ID)
 );
 
 --Event tables
@@ -503,21 +513,7 @@ CREATE TABLE Gearboxes(
 );
 
 --Indexes
-CREATE INDEX idx_users_email ON Users(email);
-CREATE INDEX idx_posts_op ON Posts(user_ID);
-CREATE INDEX idx_cars_owner ON Cars(user_owner_ID);
-CREATE INDEX idx_posts_car ON Posts(car_ID);
-CREATE INDEX idx_posts_club ON Posts(club_ID);
-CREATE INDEX idx_photos_car ON Photos(car_ID);
-CREATE INDEX idx_notifications_user ON Notifications(user_ID, is_read DESC);
-CREATE INDEX idx_slug_users ON Users(slug);
-CREATE INDEX idx_slug_cars ON Cars(slug);
-CREATE INDEX idx_slug_clubs ON Clubs(slug);
-CREATE INDEX idx_users_country ON Users(country_ID);
-CREATE INDEX idx_cars_brand ON Cars(brand_ID);
-CREATE INDEX idx_cars_model ON Cars(model_ID);
-CREATE INDEX idx_posts_event ON Posts(event_ID);
-CREATE INDEX idx_photos_location ON Photos(location_ID);
+-- TODO
 
 --Default Inserts
 INSERT INTO Notification_Types (type_name, description) VALUES
