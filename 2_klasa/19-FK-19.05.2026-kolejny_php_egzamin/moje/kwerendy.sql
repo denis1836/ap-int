@@ -1,0 +1,11 @@
+-- 1
+SELECT imie, nazwisko FROM kadra WHERE stanowisko = 'fryzjer';
+
+-- 2
+SELECT COUNT(rodzaj) AS iloscUslug FROM uslugi;
+
+-- 3
+CREATE USER 'fryzjer'@'localhost' IDENTIFIED BY 'Fryz12';
+
+-- 4
+GRANT CREATE, ALTER, SELECT ON egzamin2.kadra TO 'fryzjer';

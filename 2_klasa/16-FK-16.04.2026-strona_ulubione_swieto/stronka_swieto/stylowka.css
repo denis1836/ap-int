@@ -1,0 +1,95 @@
+:root{
+    --main-color: #616061;
+    --secondary-color: #64e6d0;
+    --blocks-color: #447074;
+}
+
+body {
+        background-color: var(--main-color);
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+}
+
+.zdejncia{
+    width: 750px;
+    height: 400px;
+    border: 12px solid lightskyblue;
+}
+
+header {
+    text-align: center;
+    margin: 0px;
+    width: 100%;
+    background-color: var(--blocks-color);
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.bloczki{
+    height: 350px;
+    border: 1.5px solid #333;
+}
+
+#tekst{
+    font-size: 17.5px;
+    height: 350px;
+}
+
+#Blok_Lewy1 {
+    width: 900px;
+    height: 400px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+footer {
+    text-align: center;
+    margin: 0px;
+    width: 100%;
+    background-color: var(--blocks-color);
+    padding: 15px 0;
+}
+
+#timer-box {
+    display: none;
+}
+
+#timer-box.active {
+    display: block;
+}
+
+#tableka {
+    border-collapse: collapse; 
+    width: 100%;
+}
+
+#tableka th, #tableka td {
+    border: 1px solid #333;
+    padding: 8px; 
+    text-align: left;
+}
+
+#tableka th {
+    background-color: #555;
+    color: white;
+}
+
+#tableka td:hover {
+    background-color: var(--secondary-color);
+    cursor: default;
+}
+
+#Blok_Lewy2:has(input:active) #timer-box {
+    display: block !important; 
+}

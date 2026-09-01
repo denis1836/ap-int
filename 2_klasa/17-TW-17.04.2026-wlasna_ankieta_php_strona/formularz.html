@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+    
+    <link rel="stylesheet" href="./styl.css">
+</head>
+
+<body>
+    <form action="./wysjil.php">
+        <label for="in-name">Podaj swoje imię: </label>
+        <input type="text" placeholder="Jan" name="in-name">
+        <br>
+        <label for="in-sur_name">Podaj swoje nazwisko: </label>
+        <input type="text" placeholder="Kowalski" name="in-sur_name">
+        <br><br>
+        <label for="in-sex-radio">Podaj swoją płeć: </label>
+        <div id="in-sex-radio">
+            <input type="radio" name="in-sex" id="in-sex-m" value="m">
+            <label for="in-sex-m">Męszczyzna</label>
+
+            <input type="radio" name="in-sex" id="in-sex-f" value="f">
+            <label for="in-sex-f">Kobieta</label>
+        </div>
+        <br>
+        <label for="in-age-radio">Podaj swój wiek: </label>
+        <div id="in-age-radio">
+            <input type="radio" name="in-age" id="in-age-lt15" value="<15">
+            <label for="in-age-lt15">Mniej niż 15</label>
+            <br>
+            <input type="radio" name="in-age" id="in-age-15_19" value="15-19">
+            <label for="in-age-15_19">15-19</label>
+            <br>
+            <input type="radio" name="in-age" id="in-age-20_29" value="20-29">
+            <label for="in-age-20_29">20-29</label>
+            <br>
+            <input type="radio" name="in-age" id="in-age-30_39" value="30-39">
+            <label for="in-age-30_39">30-39</label>
+            <br>
+            <input type="radio" name="in-age" id="in-age-40_60" value="40-60">
+            <label for="in-age-40_60">40-60</label>
+            <br>
+            <input type="radio" name="in-age" id="in-age-gt60" value="60<">
+            <label for="in-age-gt60">Więcej niż 60</label>
+        </div>
+        <br>
+        <label for="in-music-radio">Jaką lubisz muzykę?</label>
+        <div id="in-music-radio">
+            <input type="radio" name="in-music" id="in-music-rock" value="rock">
+            <label for="in-age-lt15">Rock</label>
+            <br>
+            <input type="radio" name="in-music" id="in-music-hv_mt" value="heavy_metal">
+            <label for="in-music-hv_mt">Heavy Metal</label>
+            <br>
+            <input type="radio" name="in-music" id="in-music-pop" value="pop">
+            <label for="in-music-pop">Pop</label>
+            <br>
+            <input type="radio" name="in-music" id="in-music-techno" value="techno">
+            <label for="in-music-techno">Techno</label>
+            <br>
+            <input type="radio" name="in-music" id="in-music-classic" value="classic">
+            <label for="in-music-classic">Muzyka Klasyczna</label>
+            <br>
+            <input type="radio" name="in-music" id="in-music-misc" value="other">
+            <label for="in-music-misc">Inna: </label>
+            <input type="text" name="in-music-misc">
+        </div>
+        <br>
+        <select name="in-browser-sel">
+            <option value="chrome">Chrome</option>
+            <option value="firefox">Firefox</option>
+            <option value="opera">Opera</option>
+            <option value="brave">Brave</option>
+            <option value="misc">Inna</option>
+        </select>
+        <br>
+        <label for="in-comment">Podaj Komentarz:</label>
+        <input type="text" placeholder="Komentarz" name="in-comment" id="in-comment">
+        <br>
+        <input type="submit" id="in-submit">
+    </form>
+    
+    <input type="button" onclick="location.href='./zaladuj.php'" value="Odczytaj dane">
+</body>
+
+</html>

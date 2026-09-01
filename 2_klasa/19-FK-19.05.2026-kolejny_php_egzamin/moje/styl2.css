@@ -1,0 +1,94 @@
+:root {
+    --color-1: Snow;
+    --color-2: SteelBlue;
+    --text-color-1: white;
+}
+
+body {
+    font-family: Helvetica;
+    margin: 0;
+}
+
+#left {
+    width: 70%;
+    float: left;
+}
+
+#right {
+    width: 30%;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+}
+
+#left-1 {
+    height: 400px;
+    background-color: var(--color-1);
+    text-align: center;
+}
+
+#left-2 {
+    height: 400px;
+    background-color: var(--color-1);
+    font-size: 150%;
+}
+
+#left-2 h5 {
+    margin: 0px;
+}
+
+#right-1 {
+    height: 150px;
+    background-color: var(--color-2);
+    color: var(--text-color-1);
+    text-align: center;
+}
+
+#right-2 {
+    height: 350px;
+    background-color: var(--color-2);
+    color: var(--text-color-1);
+}
+
+#right-2 ol {
+    margin: 0px;
+}
+
+#right-3 {
+    height: 300px;
+    background-color: var(--color-1);
+    text-align: center;
+}
+
+#right-3 {
+    overflow: hidden;
+}
+
+footer {
+    clear: both;
+    background-color: var(--color-2);
+    color: var(--text-color-1);
+}
+
+h2 {
+    font-size: 250%;
+}
+
+img {
+    padding: 4px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+img:hover {
+    padding: 3px;
+    border: 1px solid SteelBlue;
+}
+
+#left-1 img {
+    height: 300px;
+}
+
+#right-3 img {
+    height: 250px;
+}

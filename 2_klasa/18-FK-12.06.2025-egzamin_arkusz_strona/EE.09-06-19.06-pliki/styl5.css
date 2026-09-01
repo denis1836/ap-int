@@ -1,0 +1,51 @@
+:root {
+    --first-color: sienna;
+    --second-color: tan;
+    --text-color: white;
+
+    font-family: Georgia;
+}
+
+header, footer {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--first-color);
+    color: var(--text-color);
+    height: 150px;
+}
+
+#header-1, #footer-1 {
+    width: 40%;
+}
+
+#header-1 img {
+    height: 150px;
+    width: auto; 
+}
+
+#header-2, #footer-2 {
+    width: 50%;
+    font-size: 150%;
+}
+
+#header-3, #foooter-3 {
+    width: 10%;
+    text-align: center;
+}
+
+main {
+    background-color: var(--second-color);
+    padding: 100px;
+}
+
+#footer-2 a{
+    border: 1px dashed var(--first-color);
+    background-color: var(--second-color);
+    color: var(--first-color);
+    padding: 40px;
+    line-height: 150px;   
+}
+
+li {
+    list-style-type: circle;
+}

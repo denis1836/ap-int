@@ -1,0 +1,31 @@
+Zadanie na dzisiaj: JavaScript - Zaznajomienie się z językiem skryptów (a może i przypomnienie co i jak)
+
+Co będzie potrzebne:
+1. Strona, najlepiej w pliku .html, w którym będzie napisana strona (Strona tym razem nie będzie miała wymogu wyglądu narzuconego przeze mnie, ale w pewnym słowa znaczeniu, macie już pewien schemat już z bloczkami, a że programowanie to ppr wykorzystanie wtórne wszelakich rzeczy, to wiecie ;) .)
+2. Plik .css, w którym będzie napisany arkusz stylów dla całej strony (ponownie, możecie wykorzystać to, co już macie zrobione. strona z bloczkami)
+3. Wiedza, jak tworzyć skrypty, oraz jak posługiwać się tag'iem <script> / </script>
+
+Najprostszy przykład pisania skryptu to ppr wstawianie jakiegoś tekstu na strone. Przykładowo:
+mamy stronę, na której jest puste pole oznaczone <text ID = "tekscik">, a potem zamknięty </text>. Jest on pusty, nie ma żadnej zawartości, ale ma "imię". Żeby to zmienić, możemy użyć JavaScriptu w celu wypełnienia takowego pola, w następujący sposób:
+
+*Gdziekolwiek na stronie, według zasad "poprawnego" pisania strony natomiast - zwykle ustawiamy to w okolicach <body>* 
+\/
+<script> <- "otwieramy" skrypt dla naszej strony
+document.getElementById("tekscik").innerHTML += "Witam witam i o zdrowie się pytam";
+	^ Szukamy pola	^O danym ID ^Co "dokładnie"	^Nowa zawartość, która pojawi się w wyznaczonym przez nas miejscu.
+				     robimy.
+document.getElementById("tekscik").style.color = "red"; < w przypadku jak chcemy zmienić styl.
+document.getElementById("tekscik").src = "gif.png" < zmiana atrybutu (podmiana zdjęcia w tym przypadku) 
+</script> <- "zamykamy" skrypt dla naszej strony.
+Co dokładnie jest do zrobienia?
+Zadanie jest dosyć prostę. Chciałbym, abyście stworzyli kilka skryptów, które będą wykonywały "jakąś" czynność. Jakie dokładnie to zależy od was, natomiast zakładam następujące rzeczy:
+- 1 skrypt chciałbym, aby wstawiał coś na stronę...na przykład po naciśnięciu przycisku. Może wstawiać jakąś ilość tekstu, jakiś obrazek, embed z filmikiem, gif'a, w sumie wszystko co wymyślicie MOŻE być wstawione.
+- 2 skrypt chciałbym, aby zamieniał coś na stronię. Może to być zamiana jakiegoś tekstu na inny, może to być zmiana treści całej strony, może to być zmiana np. koloru któregoś bloku na inny.
+- 3 skrypt chciałbym, aby po naciśnięciu pewnego elementu na stronie (może to być obrazek, może być jakiś nowy przycisk) chciałbym, aby wyświetlił alert, w którym napiszecie, w zależności od tego w co trzeba wcisnąć żeby włączyć ten alert, jakąś zawartość. Przykładowo:
+* Jeśli został naciśnięty przycisk, może być prosty alert o treści "nacisnąłeś właśnie przycisk".
+* Jeśli naciśnięty został obrazek, może być krótki opis obrazka.
+* Jeśli został naciśnięty tekst...albo jedno albo drugie w sumie pasuje więc tutaj macie wolną rękę.
+
+Uprzedze pytania: za zadanie będzie ocena, więc miłoby było żeby każdy zrobił <3
+
+Pod koniec drugiej lekcji prosiłbym również, żebyście usunęli swoje prace z komputerów (jeżeli pracujecie na komputerach szkolnych). Nie możemy przecież dawać za darmo zadanie drugiej grupie, prawda?

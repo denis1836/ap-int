@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pogotowie Ratunkowe</title>
+    <link rel="stylesheet" href="./styl5.css">
+</head>
+
+<body>
+    <header>
+        <div id="header-1">
+            <img alt="pogotowie" src="./obraz.jpg">
+        </div>
+        <div id="header-2">
+            <h1>Pogotowie <br> Ratunkowe</h1>
+        </div>
+        <div id="header-3">
+            <p>Kontakt: <br> 022 222 11 333</p>
+        </div>
+    </header>
+
+    <main>
+        <form action="./zgloszenie.php">
+            <label for="form-number">Numer zespołu ratowniczego:</label><br>
+            <input type="number" name="team_number" id="form-team_number"><br>
+            <label for="form-disp_number">Numer dyspozytora:</label><br>
+            <input type="number" name="disp_number" id="form-disp_number"><br>
+            <label for="form-adress">Adres:</label><br>
+            <input type="text" name="adress" id="form-adress"><br>
+            <input type="button" onclick="team_number, disp_number, adress = null;" value="WYCZYŚĆ">
+            <input type="submit" value="ZGŁOŚ">
+        </form>
+    </main>
+
+    <footer>
+        <div id="footer-1">
+            <h4>Numery alarmowe</h4>
+            <ul>
+                <li>999</li>
+                <li>112</li>
+            </ul>
+        </div>
+        <div id="footer-2">
+            <a href="/kwerendy.txt">Pobierz kwerendy</a>
+        </div>
+        <div id="footer-3">
+            <p>Autor: <br> 92012974736</p>
+        </div>
+    </footer>
+</body>
+
+</html>

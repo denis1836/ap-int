@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!-- ###CREDITS###
+    Made by: <name> 
+    Github: github.com/<user>
+    Start: <date (DD.MM.YYYY)>
+    Last Change: <date (DD.MM.YYYY)>
+-->
+<html lang="pl">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./style.css">
+        <title>EZN-formularz</title>
+    </head>
+
+    <body>
+        <header id="b-h">
+            <p>nagłówek</p>
+            <h2><span id="b-h-h2-E" style="font-size: 50px; color: purple; font-style: italic;">E</span> lektroniczne Zakłady Naukowe</h2>
+        </header>
+
+        <div id="b-MCON">
+        <div id="b-l" class="b-side">
+            <p>Menu 1 (lewo)</p>
+            <h1>Lista</h1>
+            <ol>
+                <li value="3">opis 4
+                    <ul>
+                        <li>opis a</li>
+                        <li>opis b</li>
+                        <li>opis c</li>
+                        <li>opis d</li>
+                    </ul>
+                </li>
+                <li>opis 5</li>     
+                <li value="100">opis 6</li>
+                <li>opis 7</li>
+            </ol>
+
+            Link: <a href="https://ezn.edu.pl/">EZN</a>
+        </div>
+
+        <div id="b-m">
+            <p>zawartość</p>
+            <h2>Formularz</h2>
+            
+            <label for="b-m-u_i-txt-name"> Imię: </label>
+            <br><input type="text" placeholder="Imię" id="b-m-u_i-txt-name"><br>
+
+            <label for="b-m-u_i-txt-forname"> Nazwisko: </label>
+            <br><input type="text" placeholder="Nazwisko" id="b-m-u_i-txt-forname"><br>
+            
+            <br><label for="b-m-u_i-optbox1"> Zapytanie do pola typu "radio": </label><br>
+            <div id="b-m-u_i-optbox1">
+                <input type="radio" id="b-m-u_i-radio-opt1"><label for="b-m-u_i-radio-opt1">Opcja 1</label>
+                <br><input type="radio" id="b-m-u_i-radio-opt2"><label for="b-m-u_i-radio-opt2">Opcja 2</label>
+            </div>
+
+            <br><label for="b-m-u_i-sel1"> Wybierz kolor: </label><br>
+            <select id="b-m-u_i-sel1">
+                <option value="none">Żaden</option>
+                <option value="red" style="color: red;">Czerwony</option>
+                <option value="green" style="color: green;">Zielony</option>
+                <option value="blue" style="color: blue;">Niebieski</option>
+                <option value="purple" style="color: purple;">Fioletowy</option>
+            </select><br>
+            
+            <br><label for="b-m-u_i-optbox1">Zapytania wielokrotnego wyboru: </label>
+            <div id="b-m-u_i-optbox2">
+                <input type="checkbox" id="b-m-u_i-chkbx-odp1"><label for="b-m-u_i-chkbx-odp1">Odpowiedź 1</label>
+                <br><input type="checkbox" id="b-m-u_i-chkbx-odp2"><label for="b-m-u_i-chkbx-odp2">Odpowiedź 2</label>
+            </div>
+
+            <br><label for="b-m-u_i-txt1">Zadaj mi pytanie:</label> <br>
+            <input type="text" placeholder="Pytanie" id="b-m-u_i-txt1" style="height: 100px; width: 300px;">
+
+            <br><label for="b-m-u_i-sel1"> Wybierz samochód: </label><br>
+            <select id="b-m-u_i-sel1">
+                <option value="none">Żaden</option>
+                <optgroup label="EU">
+                    <option value="audi" >Audi</option>
+                    <option value="bmw" >BMW</option>
+                    <option value="peauguot">Peauguot</option>
+                </optgroup>
+                <optgroup label="USA">
+                    <option value="chrysler" >Chrysler</option>
+                    <option value="purple" >Ford</option>
+                </optgroup>
+            </select><br>
+
+            <br><label for="b-m-u_i-file1">Załącz plik: </label>
+            <input type="file" id="b-m-u_i-file1">
+
+            <br><input type="button" value="Wyczyść"  id="b-m-u_i-btn-clear">
+
+            <br><input type="submit" value="Wyślij Ankietę" onclick="" id="b-m-u_i-btn-submit">
+        </div>
+
+        <div id="b-r" class="b-side">
+            <p>meny 2 (prawo)</p>
+            
+            <div class="b-r-sq_abo">
+                <div class="b-r-sq_abo-divs">1</div>
+                <div class="b-r-sq_abo-divs">2</div>
+                <div class="b-r-sq_abo-divs">3</div>
+                <div id="b-r-sq_abo-div4" class="b-r-sq_abo-divs">4</div>
+                <div id="b-r-sq_abo-div5" class="b-r-sq_abo-divs">5</div>
+                <div id="b-r-sq_abo-div6" class="b-r-sq_abo-divs">6</div>
+                <div id="b-r-sq_abo-div7" class="b-r-sq_abo-divs">7</div>
+            </div>
+    
+            <img src="./img/" alt="brak zdjęcia" class="b-r-img-250x250">
+        </div>
+        </div>
+
+        <footer id="b-f">
+            <pre>stopka ąęćńłóśżź</pre>
+        </footer>
+    </body>
+</html>

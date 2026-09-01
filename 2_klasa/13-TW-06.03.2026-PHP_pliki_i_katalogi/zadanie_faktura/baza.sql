@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS Dane (
+	ID BIGINT AUTO_INCREMENT,
+	imie VARCHAR(64),
+	email VARCHAR(128),
+	adres VARCHAR(128),
+	nip VARCHAR(10),
+	telefon VARCHAR(32),
+)
+
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Formularz</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body>
+        <h1>Formularz Zamówienia</h1>
+	<hr>
+	<form action="send.php" method="post" >
+            <label for="imie">Imię i Nazwisko:</label>
+            <input type="text" id="name" name="name" placeholder="Jan Kowalski" class="form-inputs">
+            
+            <label for="tel">Telefon odbiorcy: </label>
+            <input type="tel" id="tel" name="tel" placeholder="+48 123 123 123" class="form-inputs">
+
+            <label for="adres">Pełny adres zamieszkania:</label>
+            <input type="text" id="adres" name="adres" placeholder="ul. Przykładowa 12/34, 00-000, Warszawa" class="form-inputs">
+
+            <label for="cart">ID Koszyka:</label>
+            <input type="text" id="cart" name="cart" placeholder="123" class="form-inputs">
+
+            <label for="nip">NIP:</label>
+            <input type="text" id="nip" name="nip" placeholder="(opcjonalnie)" class="form-inputs">
+
+            <label for="form-deliv_method">Sposób dostawy: </label>
+            <div id="form-deliv_method">
+                <input type="radio" name="deliv_method" id="form-deliv_method-inpost" value="Inpost">
+                <label for="form-deliv_method-inpost">Kurier Inpost</label><br>
+
+                <input type="radio" id="form-deliv_method-dpd" name="deliv_method" value="DPD">
+                <label for="form-deliv_method-dpd">Kurier DPD</label><br>
+                
+                <input type="radio" id="form-deliv_method-post" name="deliv_method" value="Poczta Polska">
+                <label for="form-deliv_method-post">Poczta Polska</label><br>
+                
+                <input type="radio" id="form-deliv_method-self" name="deliv_method" value="Odbiór Własny">
+                <label for="form-deliv_method-self">Odbiór własny</label><br>
+            </div>
+
+            <input type="submit" id="form-submit-btn">
+        </form>
+
+        <br><br>
+
+        <form action="download.php" method="get">
+            <input type="submit" value="Pobierz">
+        </form>
+    </body>
+</html>

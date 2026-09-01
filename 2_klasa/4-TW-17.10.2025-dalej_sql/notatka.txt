@@ -1,0 +1,61 @@
+AND - bramka and dla sql
+↓
+SELECT Marka, Silnik FROM Auta WHERE Marka="Audi" AND Silnik!="1.8T";
+
+
+OR - bramka or dla sql
+↓
+SELECT Koncern FROM Auta WHERE Koncern="Stelantis" OR Koncern="Volkswagen Group" OR Koncern = "General Motorsi";
+
+
+NOT - tak samo, bramka tylko w sql
+↓
+SELECT ID_Auta FROM Auta WHERE NOT Koncern="Stelantis";		## można użyć " WHERE Koncern<>'Stelantis' " ##
+
+Można również łączyć te operatory w kilka i kożystać w zestawach
+↓
+SELECT ID_Filmu, Typ_Filmu FROM Filmy WHERE (ID_Filmu=67 OR ID_Filmu=41) AND NOT Typ_Filmu="Horror";
+
+
+Hierachia operatorów:
+1. () - Nawiasy
+2. %, /, * - Mnożenie
+3. +, -, &, | - Inne
+4. AND, NOT, OR - Operatory logiczne
+5. + - Dodawanie
+
+
+IN - klauzla in zastępuje wiele operatorów OR, określa czy wartość testowana jest identyczna z przynajminiej jedną z wartością z listy
+↓
+SELECT select_lista FROM table WHERE Column (NOT) IN value_list;
+↓
+SELECT movie_title, studio_id FROM Movies WHERE studio_id IN (6, 7);
+
+
+BETWEEN - klauzula ta jest wykorzystywana dla sprwadzania czy wartość należy do określonego przedziału wartości
+↓
+SELECT select_list FROM table WHERE column (NOT) BETWEEN lower_value AN upper_value;
+↓
+SELECT movie_title, budget FROM Movies WHERE budget BETWEEN 10 AND 50;		## "WHERE budget >=10 AND <=50" też można użyć " ##
+
+Łańcuchy:
+SELECT person FROM People WHERE person BETWEEN 'A' AND 'M';
+
+
+LIKE - klazula ta jest używana kiedy chcemy znaleść nazwy zawierające podany ciąg znaków
+↓
+SELECT select_list FROM Table WHERE Column (NOT) LIKE 'Szablon';
+↓
+SELECT movie_title FROM Movie WHERE LIKE 'THE %' ## Zaczyna się na "THE" i dalej cokolwiek ##
+
+
+!------------------------------------------------------------------------------!
+
+
+SQL - ograniczenie kluczy i wartość domyślna
+
+UNIQE - Klauzla ta powoduje że wartość w kolumnie musi być unikalna
+REFERNCES - służy do ustalania relacji pomiędzy kolumnami  jednej tabeli i kluczem kandydującym z innej tabli
+NUMBER CHECK (column > 5000) - służy do ograniczenia kolumn
+DEFAULT - wartość domyślna przy tworzeniu pól w kolumnach
+SYSDATE - aktualna data systemowa

@@ -1,0 +1,19 @@
+body {
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    height: 500px;
+    width: 200px;
+    flex-direction: column;
+}
+
+.form-inputs {
+    margin: 3.5px;
+    font-size: 14px;
+}

@@ -1,0 +1,39 @@
+Ze względu na to, że niedługo rozpoczyna się już wyjątkowo wyczekiwany, nie tylko przez uczniów ale i nauczycieli, okres wakacyjny, ostatnie "duże" zadanie dla was będzie w tej samej tematyce.
+
+Zadanie: "Moje plany na wakacje".
+Co trzeba zrobić: Będziecie musieli przygotować stronę, na której opiszecie swoje plany na wakacje. Mogą to być plany faktyczne, mogą to być plany zmyślone, albo mogą to być plane które chcielibyście żeby się spełniły. Ma być jakiś plan, i ma być pokazany na stronie.
+
+Do wykonania zadania, będziecie potrzebowali następujących rzeczy:
+
+1.1. Plik HTML o nazwie "Wakacje.html".
+- Strona zapisana jest w języku HTML 5;
+- Zadeklarowany jest polski język zawartości witryny;
+- Jawnie zastosowano właściwy standard kodowania polskich znaków (UTF-8);
+- Arkusz stylów w pliku o nazwie "styl.css" prawidłowo podłączony do kodu strony.
+- Podział strony na bloki. Układ bloków znajduje się w osobnym pliku, który został wysłany wraz z treścią zadania (jak również będzie wyświetlony na rzutniku).
+
+1.1.1 Zawartość poszczególnych bloków:
+- Nagłówek - Tytuł strony, nagłówek pierwszego stopnia o treści "Moje plany na wakację" LUB swoja treść, związana z planami;
+- Zawartość bloku lewego - Tekst określający, dlaczego takie plany. W bloku lewym ma się znaleźć lista punktowana, w której wytypujecie jakieś elementy waszego planu. Pod tym wszystkim - krótki komentarz o wakacjach. Jakikolwiek, tutaj zostawiam wam wolność artystyczną.
+- Zawartość bloku prawego 1'go - Obrazki, sformatowane w taki sposób, żeby nie zaburzały układu strony. Wstępnie chciałbym założyć, że jeżeli obrazek jest bardzo dużych rozmiarów, to albo sformatujecie sobie ten obrazek ZANIM znajdzie się on na stronie, ALBO sformatujecie go już po wrzuceniu na stronę, wykorzystując do tego HTML'a lub CSS'a.
+W przypadku braku internetu - Możecie wykorzystać aplikacje graficzne znajdujące się na komputerze żeby coś narysować i wkleić do pracy (a faktyczne zdjęcia - podmienić kiedy internet wróci.) Tutaj piłeczkę zostawiam wam. Obrazki mają mieć border (opisany później), jak również mają być podpisy pod obrazkami. Zakładam, że na stronie będą minimalnie dwa obrazki.
+- Zawartość bloku prawego 2'go - Przyciski (minimalnie 2), które po wciśnięciu, W TYM SAMYM BLOKU, wyświetlą efekt skryptu (opisany później). Wyświetlony tekst ma być pogrubiony. Sposób osiągnięcia tego - dowolny.
+- Zawartość stopki - Podpis autora strony.
+
+1.2. Plik "Styl.css" z następującymi wytycznymi:
+- Każdy blok ma mieć zmieniony kolor tła. może być dowolny kolor, ale mają być pozmieniane.
+- Domyślnie dla całego tekstu: Krój czcionki Helvetica, w przypadku braku, sans-serif;
+- Wspólne dla bloków Lewego i Prawego 2'go - Zmieniony kolor czcionki, marginesy wewnętrzne 2 px;
+- Dla bloku lewego - szerokość 33.3%, górny margines wewnętrzny ustawiony na 10px. 
+- Wspólne dla bloków prawych - Szerokość 66.6%.
+- Dla obrazków - Obramowanie linią przerywaną o szerokości 1px i kolorze dowolnym (ma się różnić od koloru tła);
+Oprócz tego, dwie dowolne zmiany. Możecie zmienić cokolwiek, ale mają być dwie zmiany oprócz wymienionych przezemnie zmian.
+
+1.3 Skrypt:
+- Skrypt może sie znaleźć w kodzie strony, jak również może być w osobnym pliku. Nie zamierzam oceniać w jaki sposób podpinacie skrypt.
+1.3.1 Skrypt pierwszy:
+- Skrypt ma wyświetlić następującą zawartość w bloku prawym 2'gim, po naciśnięciu przycisku i wywołaniu funkcji kwerenda():
+  Ma zostać wyświetlona kwerenda zakładająca następujące rzeczy: Chcecie wyświetlić "plany" i "sposoby_na_odpoczynek" z tabeli "wakacje" dla tych planów, których "czas" nie przekracza wartości numerycznej 5.
+  Wyświetlony tekst ma tylko wyświetlić jakbyście napisali taką kwerendę. Nie robimy żadnej bazy danych ani nic, tylko wyświetlamy możliwy zapis takiej kwerendy.
+1.3.2 Skrypt drugi:
+- Skrypt, po naciśnięciu przycisku, w bloku prawym 2'gim, ma wyświetlić odliczanie do wakacji. Przyjmujemy, że wakacje zaczynają się tego samego dnia co oficjalne zakończenie 2'go semestru w tym roku (jest to 26 czerwca tego roku [za 10 dni]). Mają być wyświetlone TYLKO Dni.

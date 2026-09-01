@@ -1,0 +1,121 @@
+:root
+{
+    --bg_color : lightgreen;
+    --contrast_color : limegreen;
+    --contrast_color2 : #4cbb17;
+    --contrast_color3 : #9acd32;
+}
+body
+{
+    background-color: var(--bg_color);
+    width: 100%;
+    height: 100vh;
+    margin: 0px;
+
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Góra i dół strony */
+#b-h
+{
+    background-color: var(--contrast_color);
+    width: 100%;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+#b-f
+{
+    background-color: var(--contrast_color);
+    width: 100%;
+    height: 30px;
+    flex-shrink: 0;
+}
+
+/* Środek strony */
+#b-MCON
+{
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
+
+#b-m
+{
+    background-color: var(--contrast_color3);
+    width: 45%;
+    margin: 0px;
+    flex: 100%;
+    flex-grow: 1;
+}
+
+/* Boki strony */
+.b-side
+{
+    background-color: var(--contrast_color2);
+    width: 300px;
+    height: 350px;
+    overflow-y: auto;
+}
+
+#b-l
+{
+    float: none;
+}
+
+#b-r
+{
+    float: none;
+}
+
+/* Przyciski - TODO */
+
+
+/* Abominacja z kwadratów */
+
+.b-r-sq_abo
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.b-r-sq_abo-divs
+{
+    background-color: darkcyan;
+    border-style: groove;
+    border-width: 5px;
+}
+
+#b-r-sq_abo-div4
+{
+    grid-row: span 2 / span 2;
+    grid-row-start: 2;
+}
+#b-r-sq_abo-div5
+{
+    grid-column: span 2 / span 2;
+    grid-row-start: 2;
+}
+#b-r-sq_abo-div6
+{
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+#b-r-sq_abo-div7
+{
+    grid-column-start: 3;
+    grid-row-start: 3;
+}    
+
+/* Inne */
+
+.b-r-img-250x250
+{
+    width: 250px;
+    height: 250px;
+    border-style: dotted;
+}
